@@ -1,14 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
+  const [money, setMoney] = useState(0)
+  const [increment, setIncrement] = useState(0)
+
+  useEffect(()=> {
+    const id = setInterval(()=> {
+      setMoney((money) => money+increment)
+    }, 1000)
+    return () => clearInterval(id)
+  })
+
   return (
     <View style={styles.container}>
-      <Text>🍪 {10}</Text>
+      <Text>🍪 {money}</Text>
       <TouchableOpacity
         style={styles.cookieContainer}
         onPress={ () => {
           console.log('clicked')
+          setMoney(money+1)
         }}
       >
         <Image

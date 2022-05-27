@@ -1,54 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+//@ts-ignore
+import { PersistGate } from 'redux-persist/es/integration/react';
+import { earn, selectCookie } from './redux/money/moneySlice';
+import { persistor, store } from './redux/store';
+import { CookieScreen } from './screens/CookieScreen';
+
 
 export default function App() {
-  const [money, setMoney] = useState(0)
-  const [increment, setIncrement] = useState(0)
-
-  useEffect(()=> {
-    const id = setInterval(()=> {
-      setMoney((money) => money+increment)
-    }, 1000)
-    return () => clearInterval(id)
-  })
-
   return (
-    <View style={styles.container}>
-      <Text>🍪 {money}</Text>
-      <TouchableOpacity
-        style={styles.cookieContainer}
-        onPress={ () => {
-          console.log('clicked')
-          setMoney(money+1)
-        }}
-      >
-        <Image
-          source={require('./assets/cookie.png')}
-          resizeMode='contain'
-          style={styles.cookie}
-        />
-      </TouchableOpacity>
-    </View>
+    <Provider store={store}>
+      {/*@ts-ignore*/}
+      <PersistGate loading={null} persistor={persistor}>
+        <CookieScreen />
+      </PersistGate>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  cookieContainer:{
-    height:'70%',
-    width: '100%',
-    justifyContent:'center',
-    alignItems:'center',
-    padding:'5%'
-  },
-  cookie: {
-    minWidth: '100%',
-    height: '100%',
-  }
-});

@@ -10,18 +10,19 @@ export const CookieScreen: React.FC = () => {
 
     useEffect(() => {
         const id = setInterval(() => {
-            console.log('check')
+            dispatch(earn(1))
         }, 1000)
         return () => clearInterval(id)
     })
 
     return (
         <View style={styles.container}>
-            <Text>🍪 {cookie}</Text>
+            <Text
+                style={styles.cookieText}
+            >🍪 {cookie}</Text>
             <TouchableOpacity
                 style={styles.cookieContainer}
                 onPress={() => {
-                    console.log('clicked')
                     dispatch(earn(2))
                 }}
             >
@@ -31,27 +32,44 @@ export const CookieScreen: React.FC = () => {
                     style={styles.cookie}
                 />
             </TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=> {
+                    console.log('clicked')
+                }}
+            >
+                <Text style={styles.shopButton}>
+                    SHOP
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     cookieContainer: {
-      height: '70%',
-      width: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '5%'
+        height: '70%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '5%'
     },
     cookie: {
-      minWidth: '100%',
-      height: '100%',
+        width: '100%',
+        height: '100%',
+    },
+    cookieText: {
+        fontSize: 30
+    },
+    shopButton: {
+        fontSize: 30,
+        backgroundColor: "black",
+        color: "white",
+        width: "80%"
     }
-  });
-  
+});

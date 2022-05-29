@@ -1,21 +1,33 @@
-import { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 //@ts-ignore
 import { PersistGate } from 'redux-persist/es/integration/react';
-import { earn, selectCookie } from './redux/money/moneySlice';
 import { persistor, store } from './redux/store';
 import { CookieScreen } from './screens/CookieScreen';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React from 'react';
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
     <Provider store={store}>
       {/*@ts-ignore*/}
       <PersistGate loading={null} persistor={persistor}>
-        <CookieScreen />
+        <SafeAreaProvider>
+          <NavigationContainer>
+            {/*@ts-ignore*/}
+            <Stack.Navigator>
+              <Stack.Screen name="CookieScreen" component={CookieScreen}
+                options={{headerShown:false}}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
       </PersistGate>
-    </Provider>
+    </Provider >
   );
 }
 

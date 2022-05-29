@@ -3,14 +3,33 @@ import { StyleSheet, Image, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { earn, selectCookie } from "../redux/money/moneySlice";
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { selectClickLevel, selectSecLevel } from "../redux/levelSlice";
 
-export const CookieScreen: React.FC = () => {
+type RootStackParamList = {
+    CookieScreen: undefined;
+    ShopScreen: undefined
+}
+
+type Props = NativeStackScreenProps<RootStackParamList, 'CookieScreen'>;
+
+const calcClick = (lv: number[]) : number => {
+    return lv[0]*1+lv[1]*10+lv[2]*100+lv[3]*1000
+}
+
+const calcSec = (lv: number[]) : number => {
+    return lv[0]*1+lv[1]*5+lv[2]*10+lv[3]*50+lv[4]*100+lv[5]*500+lv[6]*1000+lv[7]*10000
+}
+
+export const CookieScreen: React.FC<Props> = ({ navigation }: Props) => {
     const dispatch = useDispatch()
     const cookie = useSelector(selectCookie)
+    const clickLevel = useSelector(selectClickLevel)
+    const secLevel = useSelector(selectSecLevel)
 
     useEffect(() => {
         const id = setInterval(() => {
-            dispatch(earn(1))
+            dispatch(earn(calcSec(secLevel)))
         }, 1000)
         return () => clearInterval(id)
     })
@@ -23,7 +42,7 @@ export const CookieScreen: React.FC = () => {
             <TouchableOpacity
                 style={styles.cookieContainer}
                 onPress={() => {
-                    dispatch(earn(2))
+                    dispatch(earn(calcClick(clickLevel)))
                 }}
             >
                 <Image
@@ -33,9 +52,10 @@ export const CookieScreen: React.FC = () => {
                 />
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={()=> {
-                    console.log('clicked')
+                onPress={() => {
+                    navigation.navigate('ShopScreen')
                 }}
+                style={styles.shopButtonContainer}
             >
                 <Text style={styles.shopButton}>
                     SHOP
@@ -66,10 +86,17 @@ const styles = StyleSheet.create({
     cookieText: {
         fontSize: 30
     },
+    shopButtonContainer: {
+        width: "100%",
+        alignItems: 'center',
+    },
     shopButton: {
         fontSize: 30,
         backgroundColor: "black",
         color: "white",
-        width: "80%"
-    }
+        width: "80%",
+        textAlign: 'center',
+        padding: 5,
+        borderRadius: 10
+    },
 });

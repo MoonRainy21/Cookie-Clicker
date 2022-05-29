@@ -4,12 +4,13 @@ import { PersistGate } from 'redux-persist/es/integration/react';
 import { persistor, store } from './redux/store';
 import { CookieScreen } from './screens/CookieScreen';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
+import { ShopScreen } from './screens/ShopScreen';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<ParamListBase>()
 
 export default function App() {
   return (
@@ -21,6 +22,9 @@ export default function App() {
             {/*@ts-ignore*/}
             <Stack.Navigator>
               <Stack.Screen name="CookieScreen" component={CookieScreen}
+                options={{headerShown:false}}
+              />
+              <Stack.Screen name="ShopScreen" component={ShopScreen}
                 options={{headerShown:false}}
               />
             </Stack.Navigator>

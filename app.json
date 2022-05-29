@@ -4,7 +4,7 @@
     "slug": "Cookie",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/cookie.png",
+    "icon": "./assets/sshs_icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/sshs_splash.png",
@@ -22,7 +22,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/cookie.png",
+        "foregroundImage": "./assets/sshs_adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.simon_moon.Cookie"

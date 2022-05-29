@@ -14,7 +14,7 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'CookieScreen'>;
 
 const calcClick = (lv: number[]) : number => {
-    return lv[0]*1+lv[1]*10+lv[2]*100+lv[3]*1000
+    return 1+lv[0]*1+lv[1]*10+lv[2]*100+lv[3]*1000
 }
 
 const calcSec = (lv: number[]) : number => {

@@ -22,14 +22,14 @@ const calcSec = (lv: number[]) : number => {
 }
 
 export const CookieScreen: React.FC<Props> = ({ navigation }: Props) => {
-    const dispatch = useDispatch()
-    const cookie = useSelector(selectCookie)
-    const clickLevel = useSelector(selectClickLevel)
-    const secLevel = useSelector(selectSecLevel)
+    const dispatch = //dispatch?
+    const cookie = //select?
+    const clickLevel = //select?
+    const secLevel = //select?
 
     useEffect(() => {
         const id = setInterval(() => {
-            dispatch(earn(calcSec(secLevel)))
+            //Earn per Sec
         }, 1000)
         return () => clearInterval(id)
     })
@@ -42,7 +42,7 @@ export const CookieScreen: React.FC<Props> = ({ navigation }: Props) => {
             <TouchableOpacity
                 style={styles.cookieContainer}
                 onPress={() => {
-                    dispatch(earn(calcClick(clickLevel)))
+                    //Earn per Click
                 }}
             >
                 <Image
@@ -50,10 +50,11 @@ export const CookieScreen: React.FC<Props> = ({ navigation }: Props) => {
                     resizeMode='contain'
                     style={styles.cookie}
                 />
+
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate('ShopScreen')
+                    //Navigate!
                 }}
                 style={styles.shopButtonContainer}
             >

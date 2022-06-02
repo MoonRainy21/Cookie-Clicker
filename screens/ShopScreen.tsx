@@ -86,25 +86,25 @@ const SectionData = [
     }
 ]
 
-const price = (isSec: boolean, value: number, level: number): number => {
+const CalcPrice = (isSec: boolean, value: number, level: number): number => {
     if (isSec)
         return Math.floor(value * 6000 * (Math.pow(1.1, level)))
     return Math.floor(value * 100 * (Math.pow(1.1, level)))
 }
 
 export const ShopScreen: React.FC<Props> = ({ navigation }: Props) => {
-    const cookie = useSelector(selectCookie)
-    const clickLevel = useSelector(selectClickLevel)
-    const secLevel = useSelector(selectSecLevel)
+    const cookie = //Select?
+    const clickLevel = //Select?
+    const secLevel = //Select?
 
-    const dispatch = useDispatch()
+    const dispatch = // Dispatch?
 
     return (
         <View style={ShopScreenStyles.container}>
             <View style={ShopScreenStyles.goBackContainer}>
                 <TouchableOpacity style={ShopScreenStyles.goBackButtonContainer}
                     onPress={() => {
-                        navigation.goBack()
+                        //What to Do?
                     }}
                 >
                     <Text style={ShopScreenStyles.goBack}>Go Back</Text>
@@ -117,36 +117,29 @@ export const ShopScreen: React.FC<Props> = ({ navigation }: Props) => {
             <SectionList
                 sections={SectionData}
                 renderItem={({ section, item }) => {
+                    const lv = // Level
+                    const price = // Price
                     return (
                         <>
                             <View style={ShopScreenStyles.itemContainer} >
                                 <Text style={ShopScreenStyles.item}>{item.name}(+{
-                                    section.title === '🍪/sec' ? secLevel[item.index] : clickLevel[item.index]
+                                    lv
                                 })</Text>
                                 <Text style={ShopScreenStyles.item}>{item.value}</Text>
                                 <View style={ShopScreenStyles.buyButtonContainer}>
                                     <TouchableOpacity style={ShopScreenStyles.buyButtonRound}
                                         onPress={() => {
-                                            const toUse = price(
-                                                section.title === '🍪/sec',
-                                                item.value,
-                                                section.title === '🍪/sec' ? secLevel[item.index] : clickLevel[item.index]
-                                            )
-                                            if (toUse > cookie) {
+                                            if (price > cookie) {
                                                 alert("You don't have enough cookie!")
                                                 return
                                             }
-                                            if (section.title === '🍪/sec') dispatch(secLevelUp(item.index))
-                                            else dispatch(clickLevelUp(item.index))
-                                            dispatch(earn(-toUse))
+                                            if (section.title === '🍪/sec') //What to do?
+                                            else //What to do?
+                                            //What to do?
                                         }}
                                     >
                                         <Text style={ShopScreenStyles.buyButton}>
-                                            🍪 {price(
-                                                section.title === '🍪/sec',
-                                                item.value,
-                                                section.title === '🍪/sec' ? secLevel[item.index] : clickLevel[item.index]
-                                            )}
+                                            🍪 {price}
                                         </Text>
                                     </TouchableOpacity>
                                 </View>

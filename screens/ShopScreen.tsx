@@ -93,18 +93,18 @@ const CalcPrice = (isSec: boolean, value: number, level: number): number => {
 }
 
 export const ShopScreen: React.FC<Props> = ({ navigation }: Props) => {
-    const cookie = //Select?
-    const clickLevel = //Select?
-    const secLevel = //Select?
+    const cookie = useSelector(selectCookie)
+    const clickLevel = useSelector(selectClickLevel)
+    const secLevel = useSelector(selectSecLevel)
 
-    const dispatch = // Dispatch?
+    const dispatch = useDispatch()
 
     return (
         <View style={ShopScreenStyles.container}>
             <View style={ShopScreenStyles.goBackContainer}>
                 <TouchableOpacity style={ShopScreenStyles.goBackButtonContainer}
                     onPress={() => {
-                        //What to Do?
+                      navigation.goBack()  
                     }}
                 >
                     <Text style={ShopScreenStyles.goBack}>Go Back</Text>
@@ -117,8 +117,12 @@ export const ShopScreen: React.FC<Props> = ({ navigation }: Props) => {
             <SectionList
                 sections={SectionData}
                 renderItem={({ section, item }) => {
-                    const lv = // Level
-                    const price = // Price
+                    const lv = section.title === '🍪/sec' ? secLevel[item.index] : clickLevel[item.index]
+                    const price = CalcPrice(
+                        section.title === '🍪/sec',
+                        item.value,
+                        lv
+                    )
                     return (
                         <>
                             <View style={ShopScreenStyles.itemContainer} >
@@ -133,9 +137,9 @@ export const ShopScreen: React.FC<Props> = ({ navigation }: Props) => {
                                                 alert("You don't have enough cookie!")
                                                 return
                                             }
-                                            if (section.title === '🍪/sec') //What to do?
-                                            else //What to do?
-                                            //What to do?
+                                            if (section.title === '🍪/sec') dispatch(secLevelUp(item.index))
+                                            else dispatch(clickLevelUp(item.index))
+                                            dispatch(earn(-price))
                                         }}
                                     >
                                         <Text style={ShopScreenStyles.buyButton}>

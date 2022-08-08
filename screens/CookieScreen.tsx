@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Image, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Image, Text, TouchableOpacity, View, Button } from "react-native";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { earn, selectCookie } from "../redux/money/moneySlice";
@@ -22,14 +22,14 @@ const calcSec = (lv: number[]) : number => {
 }
 
 export const CookieScreen: React.FC<Props> = ({ navigation }: Props) => {
-    const dispatch = //dispatch?
-    const cookie = //select?
-    const clickLevel = //select?
-    const secLevel = //select?
+    const dispatch = useDispatch()
+    const cookie = useSelector(selectCookie)
+    const clickLevel = useSelector(selectClickLevel)
+    const secLevel = useSelector(selectSecLevel)
 
     useEffect(() => {
         const id = setInterval(() => {
-            //Earn per Sec
+            dispatch(earn(calcSec(secLevel)))
         }, 1000)
         return () => clearInterval(id)
     })
@@ -42,7 +42,7 @@ export const CookieScreen: React.FC<Props> = ({ navigation }: Props) => {
             <TouchableOpacity
                 style={styles.cookieContainer}
                 onPress={() => {
-                    //Earn per Click
+                    dispatch(earn(calcClick(clickLevel)+cookie))
                 }}
             >
                 <Image
@@ -54,7 +54,7 @@ export const CookieScreen: React.FC<Props> = ({ navigation }: Props) => {
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
-                    //Navigate!
+                    navigation.navigate("ShopScreen")
                 }}
                 style={styles.shopButtonContainer}
             >
